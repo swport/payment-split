@@ -1,26 +1,24 @@
 const PRIMARY = {
-  light: '#757ce8',
-  main: '#3f50b5',
-  dark: '#002884',
-  contrastText: '#fff',
+    main: "#212121",
+    light: "#484848",
+    dark: "#000000",
 };
 
 const SECONDARY = {
-  light: '#ff7961',
-  main: '#f44336',
-  dark: '#ba000d',
-  contrastText: '#000',
+    light: "#8e8e8e",
+    main: "#616161",
+    dark: "#373737"
 };
 
 const palettes = {
-  light: {
-    primary: { ...PRIMARY, contrastText: "#fff" },
-    secondary: { ...SECONDARY, contrastText: "#fff" }
-  },
-  dark: {
-    primary: { ...PRIMARY, contrastText: "#fff" },
-    secondary: { ...SECONDARY, contrastText: "#fff" }
-  },
+    light: {
+        primary: { ...PRIMARY },
+        secondary: { ...SECONDARY },
+    },
+    dark: {
+        primary: { ...PRIMARY },
+        secondary: { ...SECONDARY },
+    },
 };
 
 export default palettes;
