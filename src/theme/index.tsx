@@ -10,9 +10,10 @@ import Overrides from './overrides';
 
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
 
-    const themeMode: PaletteMode = 'dark';
+    const themeMode: PaletteMode = 'light';
 
     const themeOptions = {
+        // @ts-ignore
         palette: themeMode === 'dark' ? Palettes.dark : Palettes.light,
         breakpoints: Breakpoints,
     };
