@@ -9,7 +9,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 
 // screens
 import AddFriends from "../Add-friends/Add-friends";
-import AddTransactions from "../Add-transactions";
+import AddExpenses from "../Add-expenses/Add-expenses";
 import Payments from "../Payments";
 
 import TabPanel from "./Trip-tabpanel";
@@ -80,7 +80,7 @@ const Trip = () => {
                     value={screen}
                     index={1}
                 >
-                    <AddTransactions />
+                    <AddExpenses />
                 </TabPanel>
                 <TabPanel
                     value={screen}
