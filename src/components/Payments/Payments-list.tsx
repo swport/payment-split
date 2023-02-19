@@ -63,7 +63,7 @@ const PaymentsList = ({ txns }: IProps) => {
                 ))
             ) : (
                 <p>
-                    <b>Nobody pays anything to anyone</b>
+                    <b>No payments</b>
                 </p>
             )}
         </List>
