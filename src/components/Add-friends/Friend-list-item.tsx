@@ -1,14 +1,14 @@
 import * as React from "react";
 
+import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import TextField from "@mui/material/TextField";
-import ClickAwayListener from "@mui/material/ClickAwayListener";
-import Box from "@mui/material/Box";
-import Stack from "@mui/material/Stack";
 import type { SxProps } from "@mui/material";
 
-import SaveIcon from "@mui/icons-material/Save";
+import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Check from "@mui/icons-material/Check";
+import Clear from "@mui/icons-material/Clear";
 
 import Avatar from "@mui/material/Avatar";
 import { useTripContext } from "../Trips/Trip-context/Trip-context";
@@ -20,26 +20,15 @@ type IProps = {
 };
 
 const sxAvatar: SxProps = { fontSize: "18px", fontWeight: "400" };
+const sxForm = { display: "flex" };
 
 const FriendListItem = ({ friend }: IProps) => {
     const { removeFriend, updateFriendName } = useTripContext();
 
     const [editing, setEditing] = React.useState(false);
-    const [newName, setNewName] = React.useState<string | undefined>();
-
-    React.useEffect(() => {
-        const resetEditing = (e: KeyboardEvent) => {
-            if (e.key.toLowerCase() === "escape") {
-                setEditing(false);
-            }
-        };
-
-        document.addEventListener("keyup", resetEditing);
-
-        return () => {
-            document.removeEventListener("keyup", resetEditing);
-        };
-    }, []);
+    const [newName, setNewName] = React.useState<string | undefined>(
+        friend.name
+    );
 
     const onRemoveFriend = React.useCallback(
         (id: FriendType["id"]) => {
@@ -54,11 +43,6 @@ const FriendListItem = ({ friend }: IProps) => {
         [removeFriend]
     );
 
-    const editFriend = React.useCallback(() => {
-        setEditing(true);
-        setNewName(friend.name);
-    }, [friend]);
-
     const updateName = () => {
         if (!newName || newName === "") {
             return alert("Name cannot be empty");
@@ -68,90 +52,101 @@ const FriendListItem = ({ friend }: IProps) => {
         setEditing(false);
     };
 
-    const onKeyDwnName = (e: React.KeyboardEvent) => {
-        if (e.key.toLowerCase() === "enter") {
-            updateName();
-        }
-    };
-
-    const onUpdatingName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleNameUpdate = (e: React.ChangeEvent<HTMLInputElement>) => {
         setNewName(e.target.value);
     };
 
-    const onClickingName = () => {
-        editFriend();
-    };
-
-    const handleClickAway = () => {
-        setEditing(false);
+    const handleNameSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        updateName();
     };
 
     return (
-        <Stack
-            direction="row"
+        <Grid
+            container
+            gap="8px"
             justifyContent="space-between"
             alignItems="center"
-            spacing={2}
-            fontWeight="bold"
+            wrap="nowrap"
         >
-            <Box onClick={onClickingName}>
-                {editing ? (
-                    <Stack
-                        direction="row"
-                        alignItems="center"
-                        spacing={2}
+            <Grid
+                item
+                xs
+                container
+                alignItems="center"
+                wrap="nowrap"
+            >
+                <Grid
+                    item
+                    xs
+                    gap="8px"
+                    container
+                    wrap="nowrap"
+                    alignItems="center"
+                >
+                    <Avatar
+                        sx={{
+                            ...sxAvatar,
+                            backgroundColor: friend.color?.backgroundColor,
+                            color: friend.color?.color,
+                        }}
                     >
-                        <ClickAwayListener onClickAway={handleClickAway}>
+                        {friend.initials}
+                    </Avatar>
+
+                    {editing ? (
+                        <form
+                            style={sxForm}
+                            onSubmit={handleNameSubmit}
+                        >
                             <TextField
                                 autoFocus
                                 autoComplete="false"
                                 autoCapitalize="false"
                                 autoCorrect="false"
                                 value={newName}
-                                onKeyDown={onKeyDwnName}
-                                onChange={onUpdatingName}
+                                onChange={handleNameUpdate}
                                 size="small"
                             />
-                        </ClickAwayListener>
-                        <IconButton
-                            onClick={updateName}
-                            edge="start"
-                            aria-label="save"
-                            tabIndex={0}
-                        >
-                            <SaveIcon />
-                        </IconButton>
-                    </Stack>
-                ) : (
-                    <Stack
-                        direction="row"
-                        alignItems="center"
-                        spacing={2}
-                    >
-                        <Avatar
-                            sx={{
-                                ...sxAvatar,
-                                backgroundColor: friend.color?.backgroundColor,
-                                color: friend.color?.color
-                            }}
-                        >
-                            {friend.initials}
-                        </Avatar>
-                        <span>{friend.name}</span>
-                    </Stack>
-                )}
-            </Box>
+                            <IconButton
+                                type="submit"
+                            >
+                                <Check />
+                            </IconButton>
+                            <IconButton
+                                onClick={() => setEditing(false)}
+                            >
+                                <Clear />
+                            </IconButton>
+                        </form>
+                    ) : (
+                        <b>{friend.name}</b>
+                    )}
+                </Grid>
+            </Grid>
 
-            <Box>
-                <IconButton
-                    size="small"
-                    onClick={() => onRemoveFriend(friend.id)}
-                    aria-label="delete"
+            {!editing && (
+                <Grid
+                    item
+                    xs
+                    textAlign="right"
+                    justifyContent="flex-end"
+                    container
+                    alignItems="center"
                 >
-                    <DeleteIcon />
-                </IconButton>
-            </Box>
-        </Stack>
+                    <IconButton onClick={() => setEditing(true)}>
+                        <EditIcon />
+                    </IconButton>
+                    <IconButton
+                        size="small"
+                        onClick={() => onRemoveFriend(friend.id)}
+                        aria-label="delete"
+                    >
+                        <DeleteIcon />
+                    </IconButton>
+                </Grid>
+            )}
+        </Grid>
     );
 };
 
