@@ -19,10 +19,17 @@ type ItemsType = Array<{
 }>;
 
 export type ComputedTxns = Array<{
+    id: number;
     amount: number | string;
     from_friend: FriendType;
     to_friend: FriendType;
 }>;
+
+let lastId = 0;
+
+export const randomId = () => {
+    return Math.floor(Math.random() * 1000) + ++lastId;
+};
 
 class SplitPaymentCalcClass {
     private expenses: ExpensesType;
@@ -45,6 +52,7 @@ class SplitPaymentCalcClass {
             const bin = bins[0];
 
             return items.map((item) => ({
+                id: randomId(),
                 from_friend: item.friend,
                 to_friend: bin.friend,
                 amount: item.amount.toFixed(2),
@@ -64,6 +72,7 @@ class SplitPaymentCalcClass {
                 if (+bin.amount.toFixed(1) >= +item_amount.toFixed(1)) {
                     bin.amount -= item_amount; // decrease bin amount
                     result.push({
+                        id: randomId(),
                         from_friend: item.friend,
                         to_friend: bin.friend,
                         amount: item_amount.toFixed(2),
@@ -91,6 +100,7 @@ class SplitPaymentCalcClass {
                 }
 
                 result.push({
+                    id: randomId(),
                     from_friend: item.friend,
                     to_friend: bin.friend,
                     amount: amount.toFixed(2),
