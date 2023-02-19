@@ -18,6 +18,7 @@ interface TripProviderState extends State {
     addTxn: (friendId: FriendType["id"], txnInput: TxnInputType) => void;
     updateTxn: (txnId: TxnType["id"], amount: TxnType["amount"]) => void;
     removeTxn: (txnId: TxnType["id"]) => void;
+    reset: () => void;
 }
 
 const TripContext = React.createContext<TripProviderState | undefined>(
@@ -61,6 +62,8 @@ function TripProvider(props: IProps) {
     const removeTxn = (txnId: TxnType["id"]) =>
         dispatch({ type: "REMOVE_TXN", txnId });
 
+    const reset = () => dispatch({ type: "RESET" });
+
     const value = React.useMemo(
         () => ({
             ...state,
@@ -70,6 +73,7 @@ function TripProvider(props: IProps) {
             addTxn,
             updateTxn,
             removeTxn,
+            reset
         }),
         [state]
     );

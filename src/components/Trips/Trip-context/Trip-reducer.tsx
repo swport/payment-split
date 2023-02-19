@@ -27,7 +27,8 @@ export type Action =
       }
     | { type: "ADD_TXN"; friendId: FriendType["id"]; txnInput: TxnInputType }
     | { type: "REMOVE_TXN"; txnId: TxnType["id"] }
-    | { type: "UPDATE_TXN"; txnId: TxnType["id"]; amount: TxnType["amount"] };
+    | { type: "UPDATE_TXN"; txnId: TxnType["id"]; amount: TxnType["amount"] }
+    | { type: "RESET" };
 
 export const initialState = {
     friends: [],
@@ -90,6 +91,9 @@ function TripReducer(state: State, action: Action): State {
                 ...state,
                 txns: updatedTxns,
             };
+
+        case "RESET":
+            return initialState;
     }
 
     return state;
