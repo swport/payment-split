@@ -15,6 +15,7 @@ import type {
 export type State = {
     friends: Array<FriendType>;
     txns: Array<TxnType>;
+    currency: string;
 };
 
 export type Action =
@@ -33,6 +34,7 @@ export type Action =
 export const initialState = {
     friends: [],
     txns: [],
+    currency: 'INR'
 };
 
 function TripReducer(state: State, action: Action): State {

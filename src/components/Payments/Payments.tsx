@@ -37,7 +37,7 @@ const get_consolidate_expenses = (txns: TxnListType): ExpensesType => {
 };
 
 const Payments = () => {
-    const { txns, friends } = useTripContext();
+    const { txns, friends, toPrice } = useTripContext();
 
     const [total, setTotal] = React.useState<number | undefined>();
     const [transactions, setTransactions] = React.useState<
@@ -101,7 +101,9 @@ const Payments = () => {
                 </FormControl>
             </Box>
             {filteredTxns && <PaymentsList txns={filteredTxns} />}
-            <p>Total: <b>{total}</b></p>
+            {total && (
+                <p>Total: <b>{toPrice(total)}</b></p>
+            )}
         </>
     );
 };

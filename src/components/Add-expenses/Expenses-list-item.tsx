@@ -23,7 +23,7 @@ type IProps = {
 const ExpensesListItem = ({ txn }: IProps) => {
     const friend = txn.friend;
 
-    const { updateTxn, removeTxn } = useTripContext();
+    const { updateTxn, removeTxn, toPrice } = useTripContext();
 
     const [editing, setEditing] = React.useState(false);
     const [newAmt, setNewAmt] = React.useState<number | undefined>(txn.amount);
@@ -135,7 +135,7 @@ const ExpensesListItem = ({ txn }: IProps) => {
                             </IconButton>
                         </form>
                     ) : (
-                        <b onClick={() => startEditing()}> {txn.amount}</b>
+                        <b onClick={() => startEditing()}> {toPrice(txn.amount)}</b>
                     )}
                 </Grid>
             </Grid>

@@ -4,7 +4,6 @@ import type {
     TxnInputType,
     TxnType,
 } from "./Trip-types";
-import type { State } from "./Trip-reducer";
 import {
     getInitialsFromName,
     getRandomColor,
@@ -15,7 +14,7 @@ export const addFriend = (
     friends: FriendType[],
     txns: TxnType[],
     friend: FriendInputType
-): State => {
+) => {
     const newFriend = {
         id: randomId(),
         ...friend,

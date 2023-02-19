@@ -1,4 +1,5 @@
 import React from "react";
+import { numToPrice } from "../../../utis/helpers";
 
 import TripReducer, { State, initialState } from "./Trip-reducer";
 import type {
@@ -19,6 +20,7 @@ interface TripProviderState extends State {
     updateTxn: (txnId: TxnType["id"], amount: TxnType["amount"]) => void;
     removeTxn: (txnId: TxnType["id"]) => void;
     reset: () => void;
+    toPrice: (price: number | string) => string;
 }
 
 const TripContext = React.createContext<TripProviderState | undefined>(
@@ -64,6 +66,10 @@ function TripProvider(props: IProps) {
 
     const reset = () => dispatch({ type: "RESET" });
 
+    const toPrice = React.useCallback((price: number | string) => {
+        return numToPrice(price, state.currency);
+    }, [state.currency]);
+
     const value = React.useMemo(
         () => ({
             ...state,
@@ -73,9 +79,10 @@ function TripProvider(props: IProps) {
             addTxn,
             updateTxn,
             removeTxn,
-            reset
+            reset,
+            toPrice
         }),
-        [state]
+        [state, toPrice]
     );
 
     return (

@@ -8,12 +8,14 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Checkbox from "@mui/material/Checkbox";
+import { useTripContext } from "../Trips/Trip-context/Trip-context";
 
 type IProps = {
     txns: ComputedTxns;
 };
 
 const PaymentsList = ({ txns }: IProps) => {
+    const { toPrice } = useTripContext();
     const [checked, setChecked] = React.useState([-1]);
 
     const handleToggle = (value: number) => () => {
@@ -54,7 +56,7 @@ const PaymentsList = ({ txns }: IProps) => {
                                 id={`paymentId-${txn.id}`}
                             >
                                 <b>{txn.from_friend.name}</b> gives{" "}
-                                <b>{txn.to_friend.name}</b> {Number(txn.amount)}
+                                <b>{txn.to_friend.name}</b> {toPrice(txn.amount)}
                             </ListItemText>
                         </ListItemButton>
                     </ListItem>

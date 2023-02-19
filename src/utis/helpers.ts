@@ -37,3 +37,12 @@ export const getRandomColor = () => {
       color: "#ffffff"
   };
 };
+
+export const numToPrice = (price: string | number, currecny: string) => {
+    
+    return Number(price)
+        .toLocaleString("en-US", {
+            style: "currency",
+            currency: currecny
+        });
+};
