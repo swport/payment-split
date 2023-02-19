@@ -10,7 +10,7 @@ import AccountBalanceIcon from "@mui/icons-material/AccountBalance";
 // screens
 import AddFriends from "../Add-friends/Add-friends";
 import AddExpenses from "../Add-expenses/Add-expenses";
-import Payments from "../Payments";
+import Payments from "../Payments/Payments";
 
 import TabPanel from "./Trip-tabpanel";
 import SxTab from "./Trip-tab";
