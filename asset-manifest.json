@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/payment-split/static/js/main.c5b19a38.js",
+    "static/js/308.3ede8ca1.chunk.js": "/payment-split/static/js/308.3ede8ca1.chunk.js",
+    "index.html": "/payment-split/index.html",
+    "main.c5b19a38.js.map": "/payment-split/static/js/main.c5b19a38.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.c5b19a38.js"
+  ]
+}
