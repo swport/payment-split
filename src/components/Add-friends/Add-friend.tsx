@@ -29,11 +29,9 @@ const AddFriend = () => {
     const { friends, addFriend } = useTripContext();
     
     const [name, setName] = React.useState("");
-    const inputRef = React.useRef<HTMLInputElement | null>(null);
 
     const reset = () => {
         setName("");
-        inputRef.current?.focus();
     };
 
     const _addFriend = () => {
@@ -77,7 +75,6 @@ const AddFriend = () => {
                     <PersonIcon />
                 </IconButton>
                 <InputBase
-                    inputRef={inputRef}
                     onChange={onNameChangeEvent}
                     onKeyDown={onNameKeyDownEvent}
                     value={name}

@@ -120,7 +120,6 @@ const AddExpenses = () => {
                     >
                         <FormControl fullWidth>
                             <TextField
-                                autoFocus
                                 autoComplete="false"
                                 autoCapitalize="false"
                                 autoCorrect="false"
