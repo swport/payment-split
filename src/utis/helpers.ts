@@ -40,9 +40,19 @@ export const getRandomColor = () => {
 
 export const numToPrice = (price: string | number, currecny: string) => {
     
+    try {
+        return Number(price)
+            .toLocaleString("en-US", {
+                style: "currency",
+                currency: currecny
+            });
+    } catch(e) {
+        console.log("e, currecny: ", e, currecny);
+    }
+
     return Number(price)
-        .toLocaleString("en-US", {
-            style: "currency",
-            currency: currecny
-        });
+            .toLocaleString("en-US", {
+                style: "currency",
+                currency: "INR"
+            });
 };

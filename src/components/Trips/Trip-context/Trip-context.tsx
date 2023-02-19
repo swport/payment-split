@@ -21,6 +21,7 @@ interface TripProviderState extends State {
     removeTxn: (txnId: TxnType["id"]) => void;
     reset: () => void;
     toPrice: (price: number | string) => string;
+    changeCurrency: (currency: string) => void;
 }
 
 const TripContext = React.createContext<TripProviderState | undefined>(
@@ -66,6 +67,8 @@ function TripProvider(props: IProps) {
 
     const reset = () => dispatch({ type: "RESET" });
 
+    const changeCurrency = (currency: string) => dispatch({ type: "UPDATE_CURRENCY", currency });
+
     const toPrice = React.useCallback((price: number | string) => {
         return numToPrice(price, state.currency);
     }, [state.currency]);
@@ -80,6 +83,7 @@ function TripProvider(props: IProps) {
             updateTxn,
             removeTxn,
             reset,
+            changeCurrency,
             toPrice
         }),
         [state, toPrice]
