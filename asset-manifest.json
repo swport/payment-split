@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.js": "/payment-split/static/js/main.c5b19a38.js",
+    "main.js": "/payment-split/static/js/main.9ea1b019.js",
     "static/js/308.3ede8ca1.chunk.js": "/payment-split/static/js/308.3ede8ca1.chunk.js",
     "index.html": "/payment-split/index.html",
-    "main.c5b19a38.js.map": "/payment-split/static/js/main.c5b19a38.js.map"
+    "main.9ea1b019.js.map": "/payment-split/static/js/main.9ea1b019.js.map"
   },
   "entrypoints": [
-    "static/js/main.c5b19a38.js"
+    "static/js/main.9ea1b019.js"
   ]
 }
