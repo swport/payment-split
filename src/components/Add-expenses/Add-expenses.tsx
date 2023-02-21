@@ -8,6 +8,7 @@ import Grid from "@mui/material/Grid";
 import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
@@ -66,7 +67,7 @@ const AddExpenses = () => {
 
     return (
         <div>
-            <Typography marginBottom=".875rem">
+            <Box marginBottom=".875rem">
                 <Typography
                     variant="h6"
                     fontWeight="bold"
@@ -76,7 +77,7 @@ const AddExpenses = () => {
                 <Typography variant="subtitle2">
                     Select friend, input amount, and add expense
                 </Typography>
-            </Typography>
+            </Box>
             <form onSubmit={onTxnSubmit}>
                 <Grid
                     container
