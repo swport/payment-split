@@ -93,6 +93,11 @@ const Header = () => {
                         Add payment made by each friend during the trip.
                         And voila, in the third tab you can see who owes to whome.
                     </DialogContentText>
+                    <DialogContentText marginTop="24px" textAlign="right">
+                        <sub>
+                            Built with ❤︎ by Sumit Wadhwa
+                        </sub>
+                    </DialogContentText>
                 </DialogContent>
             </Dialog>
         </>
