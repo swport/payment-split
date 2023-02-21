@@ -106,7 +106,7 @@ const AddExpenses = () => {
                                     <small>Friend</small>
                                 </MenuItem>
                                 {friends.map((friend) => (
-                                    <MenuItem value={friend.id}>
+                                    <MenuItem key={friend.id} value={friend.id}>
                                         {friend.name}
                                     </MenuItem>
                                 ))}

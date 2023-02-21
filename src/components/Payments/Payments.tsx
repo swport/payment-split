@@ -95,7 +95,7 @@ const Payments = () => {
                             <small>All Friends</small>
                         </MenuItem>
                         {friends.map((friend) => (
-                            <MenuItem value={friend.id}>{friend.name}</MenuItem>
+                            <MenuItem key={friend.id} value={friend.id}>{friend.name}</MenuItem>
                         ))}
                     </TextField>
                 </FormControl>
