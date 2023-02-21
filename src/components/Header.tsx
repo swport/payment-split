@@ -9,11 +9,13 @@ import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 
 import Brightness4Icon from "@mui/icons-material/Brightness4";
+import LightModeIcon from '@mui/icons-material/LightMode';
 import GitHubIcon from "@mui/icons-material/GitHub";
 import InfoIcon from "@mui/icons-material/Info";
 import VerticalSplit from "@mui/icons-material/VerticalSplit";
 
 import { SxProps } from "@mui/material";
+import { useAppContext } from "../App-context";
 
 const sxDialogBox: SxProps = {
     "& .MuiDialog-container": {
@@ -24,13 +26,24 @@ const sxDialogBox: SxProps = {
 const Header = () => {
     const [infoModalOpen, setInfoModalOpen] = React.useState(false);
 
+    const { toggleThemeMode, mode } = useAppContext();
+
+    const toggleTheme = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        toggleThemeMode();
+    };
+
     return (
         <>
             <Box borderBottom={1} borderColor="divider">
                 <Grid container wrap="nowrap">
                     <Grid item xs={6}>
-                        <IconButton href="https://github.com" target="_blank">
-                            <Brightness4Icon />
+                        <IconButton onClick={toggleTheme}>
+                            {mode === 'dark' ? (
+                                <LightModeIcon />
+                            ) : (
+                                <Brightness4Icon />
+                            )}
                         </IconButton>
                     </Grid>
                     <Grid

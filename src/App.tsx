@@ -8,8 +8,9 @@ import Header from "./components/Header";
 import Trips from "./components/Trips/Trips";
 import ThemeProvider from "./theme";
 
+import AppProvider from "./App-context";
+
 const Wrapper = styled("div")(({ theme }) => ({
-    backgroundColor: theme.palette.grey[100],
     width: "100%",
     height: "100%",
     minHeight: "100vh",
@@ -31,19 +32,24 @@ function App() {
     // }, []);
 
     return (
-        <ThemeProvider>
-            <Wrapper>
-                <Container maxWidth="sm" disableGutters={true}>
-                    <Content
-                        elevation={2}
-                        square={true}
+        <AppProvider>
+            <ThemeProvider>
+                <Wrapper>
+                    <Container
+                        maxWidth="sm"
+                        disableGutters={true}
                     >
-                        <Header />
-                        <Trips />
-                    </Content>
-                </Container>
-            </Wrapper>
-        </ThemeProvider>
+                        <Content
+                            elevation={2}
+                            square={true}
+                        >
+                            <Header />
+                            <Trips />
+                        </Content>
+                    </Container>
+                </Wrapper>
+            </ThemeProvider>
+        </AppProvider>
     );
 }
 

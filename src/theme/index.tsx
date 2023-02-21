@@ -1,32 +1,44 @@
-import * as React from 'react';
+import * as React from "react";
 
-import { CssBaseline, PaletteMode } from '@mui/material';
-import { createTheme, ThemeProvider as MUIThemeProvider } from '@mui/material/styles';
+import { CssBaseline } from "@mui/material";
+import {
+    createTheme,
+    ThemeProvider as MUIThemeProvider,
+} from "@mui/material/styles";
+import type { PaletteOptions } from "@mui/material";
 
-import Palettes from './palettes';
-import Breakpoints from './breakpoints';
+import Palettes from "./palettes";
+import Breakpoints from "./breakpoints";
 
-import Overrides from './overrides';
+import Overrides from "./overrides";
+import { useAppContext } from "../App-context";
 
-export default function ThemeProvider({ children }: { children: React.ReactNode }) {
+export default function ThemeProvider({
+    children,
+}: {
+    children: React.ReactNode;
+}) {
+    const { mode } = useAppContext();
 
-    const themeMode: PaletteMode = 'light';
+    const palette: PaletteOptions =
+        mode === "dark"
+            ? { mode: "dark" }
+            : {
+                  ...Palettes.light,
+                  background: { default: "#ebebeb" },
+              };
 
-    const themeOptions = {
-        // @ts-ignore
-        palette: themeMode === 'dark' ? Palettes.dark : Palettes.light,
+    const theme = createTheme({
         breakpoints: Breakpoints,
-    };
+        palette,
+    });
 
-    const theme = createTheme(themeOptions);
     theme.components = Overrides(theme);
-    theme.palette.mode = themeMode;
 
     return (
         <MUIThemeProvider theme={theme}>
             <CssBaseline />
             {children}
         </MUIThemeProvider>
-    )
-
+    );
 }
