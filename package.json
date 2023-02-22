@@ -1,8 +1,13 @@
 {
   "name": "payment-split",
   "version": "0.1.0",
-  "private": true,
+  "license": "MIT",
   "homepage": "https://swport.github.io/payment-split",
+  "author": {
+    "name": "Sumit Wadhwa",
+    "email": "wadhwa.sumit007@yahoo.com",
+    "url": "https://github.com/swport"
+  },
   "dependencies": {
     "@emotion/react": "^11.10.4",
     "@emotion/styled": "^11.10.4",
