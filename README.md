@@ -16,6 +16,8 @@ https://swport.github.io/payment-split
 
 Unit and integration test cases
 
+Save trip state in user's local storage
+
 ## Known Issues
 
 The final transactions screen re-calculates everything even with friends or expenses unchanged.
