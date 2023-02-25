@@ -8,7 +8,7 @@ To get started, simply add friends. Add payment made by each friend during the t
 
 ## App
 
-Here's demo [link](https://swport.github.io/payment-split) to the app
+Here's the [link](https://swport.github.io/payment-split) to the app
 
 https://swport.github.io/payment-split
 
