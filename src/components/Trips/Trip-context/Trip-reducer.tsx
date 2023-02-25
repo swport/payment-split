@@ -1,6 +1,7 @@
 import {
     addFriend,
     addTxn,
+    removeTxn,
     removeFriend,
     updateFriendName,
 } from "./Trip-reducer-functions";
@@ -80,7 +81,7 @@ function TripReducer(state: State, action: Action): State {
         case "REMOVE_TXN":
             return {
                 ...state,
-                txns: state.txns.filter((txn) => txn.id !== action.txnId),
+                ...removeTxn(state.txns, action.txnId),
             };
 
         case "UPDATE_TXN":

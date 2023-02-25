@@ -96,3 +96,29 @@ export const addTxn = (
         };
     }
 };
+
+export const removeTxn = (
+    txns: TxnType[],
+    txnId: TxnType["id"],
+) => {
+    let map: {[key: number]: number} = {};
+    txns.forEach(txn => {
+        map[txn.friend.id] = 1 + (map[txn.friend.id] || 0);
+    });
+
+    return {
+        txns: txns.reduce((acc, txn) => {
+            if( txn.id === txnId ) {
+                if( map[txn.friend.id] === 1 ) {
+                    acc.push({
+                        ...txn,
+                        amount: 0
+                    });
+                }
+            } else {
+                acc.push(txn);
+            }
+            return acc;
+        }, [] as TxnType[])
+    };
+};
