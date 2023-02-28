@@ -97,7 +97,10 @@ function TripReducer(state: State, action: Action): State {
             };
 
         case "RESET":
-            return initialState;
+            return {
+                ...initialState,
+                currency: state.currency
+            };
 
         case "UPDATE_CURRENCY":
             return {

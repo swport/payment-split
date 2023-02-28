@@ -21,6 +21,11 @@ type Currency = {
 
 const sxCurrencySelect: SxProps = { marginY: "0.54rem", marginRight: "12px" };
 
+const defaultCurrency: Currency = {
+    name: "Indian Rupee",
+    code: "INR"
+};
+
 const TripHeader = () => {
     const { currency, reset, changeCurrency } = useTripContext();
 
@@ -38,16 +43,16 @@ const TripHeader = () => {
         changeCurrency(value.code);
     };
 
+    const getSelectedCurrency = () => {
+        const selected = currencies.find(c => c.code === currency);
+        return selected || defaultCurrency;
+    };
+
     React.useEffect(() => {
         import("../../utis/currencies.json").then((currencies) =>
             setCurrencies(currencies.default)
         );
     }, []);
-
-    React.useEffect(() => {
-        if (currencies.length) {
-        }
-    }, [currencies]);
 
     return (
         <Grid
@@ -91,10 +96,7 @@ const TripHeader = () => {
                                 />
                             )}
                             sx={sxCurrencySelect}
-                            defaultValue={{
-                                name: "Indian Rupee",
-                                code: "INR"
-                            }}
+                            value={getSelectedCurrency()}
                         />
                     )}
                 </FormControl>
