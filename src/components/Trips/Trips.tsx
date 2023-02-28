@@ -5,7 +5,7 @@ import TripHeader from "./Trip-header";
 
 const Trips = () => {
     return (
-        <TripProvider>
+        <TripProvider tripid={0}>
             <TripHeader />
             <Trip />
         </TripProvider>

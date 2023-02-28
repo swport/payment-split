@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import { numToPrice } from "../../../utis/helpers";
 
 import TripReducer, { State, initialState } from "./Trip-reducer";
@@ -31,6 +31,7 @@ const TripContext = React.createContext<TripProviderState | undefined>(
 TripContext.displayName = "TripContext";
 
 type IProps = {
+    tripid: number;
     children: React.ReactNode;
 };
 
@@ -44,6 +45,7 @@ export const useTripContext = () => {
 
 function TripProvider(props: IProps) {
     const [state, dispatch] = React.useReducer(TripReducer, initialState);
+    const isMounted = React.useRef(false);
 
     const addFriend = (friendInput: FriendInputType) =>
         dispatch({ type: "ADD_FRIEND", friendInput });
@@ -88,6 +90,34 @@ function TripProvider(props: IProps) {
         }),
         [state, toPrice]
     );
+
+    const tripid = props.tripid;
+
+    React.useEffect(() => {
+        try {
+            const lsState = localStorage.getItem(`trip-${tripid}`);
+            if( lsState ) {
+                const savedState = JSON.parse(lsState) as State;
+                dispatch({ type: "ENTIRE_STATE", state: savedState });
+                return;
+            }
+        } catch(e) {
+            console.log(e);
+        }
+
+        isMounted.current = true;
+    }, [tripid]);
+
+    React.useEffect(() => {
+        if( isMounted.current ) {
+            localStorage.setItem(
+                `trip-${tripid}`,
+                JSON.stringify(state)
+            );
+        } else {
+            isMounted.current = true;
+        }
+    }, [state, tripid]);
 
     return (
         <TripContext.Provider value={value} {...props} />
