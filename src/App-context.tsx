@@ -9,7 +9,7 @@ interface AppProviderState extends State {
 }
 
 const initialState: State = {
-    mode: "light",
+    mode: "dark",
 };
 
 const AppContext = React.createContext<AppProviderState | undefined>(undefined);
