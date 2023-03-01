@@ -41,6 +41,7 @@ const PaymentsList = ({ txns }: IProps) => {
                         <ListItemButton
                             role={undefined}
                             onClick={handleToggle(txn.id)}
+                            disableRipple
                             dense
                         >
                             <ListItemIcon>
