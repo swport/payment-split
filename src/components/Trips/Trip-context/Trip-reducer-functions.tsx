@@ -8,7 +8,7 @@ import {
     getInitialsFromName,
     getRandomColor,
     randomId,
-} from "../../../utis/helpers";
+} from "../../../utils/helpers";
 
 export const addFriend = (
     friends: FriendType[],

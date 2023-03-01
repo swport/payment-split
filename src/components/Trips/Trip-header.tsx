@@ -49,7 +49,7 @@ const TripHeader = () => {
     };
 
     React.useEffect(() => {
-        import("../../utis/currencies.json").then((currencies) =>
+        import("../../utils/currencies.json").then((currencies) =>
             setCurrencies(currencies.default)
         );
     }, []);

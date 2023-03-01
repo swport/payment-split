@@ -1,5 +1,5 @@
 import React from "react";
-import { numToPrice } from "../../../utis/helpers";
+import { numToPrice } from "../../../utils/helpers";
 
 import TripReducer, { State, initialState } from "./Trip-reducer";
 import type {
