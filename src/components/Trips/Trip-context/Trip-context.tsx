@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { numToPrice } from "../../../utis/helpers";
 
 import TripReducer, { State, initialState } from "./Trip-reducer";
@@ -8,6 +8,8 @@ import type {
     TxnType,
     TxnInputType,
 } from "./Trip-types";
+import SplitPaymentCalculator from "../../../services/SplitPaymentCalculator";
+import { getConsolidatedExpenses, Payments } from "./Trip-utils";
 
 interface TripProviderState extends State {
     addFriend: (friendInput: FriendInputType) => void;
@@ -20,8 +22,9 @@ interface TripProviderState extends State {
     updateTxn: (txnId: TxnType["id"], amount: TxnType["amount"]) => void;
     removeTxn: (txnId: TxnType["id"]) => void;
     reset: () => void;
-    toPrice: (price: number | string) => string;
     changeCurrency: (currency: string) => void;
+    toPrice: (price: number | string) => string;
+    getPayments: () => Payments;
 }
 
 const TripContext = React.createContext<TripProviderState | undefined>(
@@ -46,6 +49,7 @@ export const useTripContext = () => {
 function TripProvider(props: IProps) {
     const [state, dispatch] = React.useReducer(TripReducer, initialState);
     const isMounted = React.useRef(false);
+    const memoizedPayments = React.useRef<Payments>();
 
     const addFriend = (friendInput: FriendInputType) =>
         dispatch({ type: "ADD_FRIEND", friendInput });
@@ -69,11 +73,29 @@ function TripProvider(props: IProps) {
 
     const reset = () => dispatch({ type: "RESET" });
 
-    const changeCurrency = (currency: string) => dispatch({ type: "UPDATE_CURRENCY", currency });
+    const changeCurrency = (currency: string) =>
+        dispatch({ type: "UPDATE_CURRENCY", currency });
 
-    const toPrice = React.useCallback((price: number | string) => {
-        return numToPrice(price, state.currency);
-    }, [state.currency]);
+    const toPrice = React.useCallback(
+        (price: number | string) => {
+            return numToPrice(price, state.currency);
+        },
+        [state.currency]
+    );
+
+    React.useEffect(() => {
+        memoizedPayments.current = undefined;
+    }, [state.txns]);
+
+    const getPayments = React.useCallback(() => {
+        if( !memoizedPayments.current ) {
+            const payments = new SplitPaymentCalculator(
+                getConsolidatedExpenses(state.txns)
+            );
+            memoizedPayments.current = new Payments(payments);
+        }
+        return memoizedPayments.current;
+    }, [state.txns]);
 
     const value = React.useMemo(
         () => ({
@@ -86,9 +108,10 @@ function TripProvider(props: IProps) {
             removeTxn,
             reset,
             changeCurrency,
-            toPrice
+            toPrice,
+            getPayments
         }),
-        [state, toPrice]
+        [state, toPrice, getPayments]
     );
 
     const tripid = props.tripid;
@@ -96,12 +119,12 @@ function TripProvider(props: IProps) {
     React.useEffect(() => {
         try {
             const lsState = localStorage.getItem(`trip-${tripid}`);
-            if( lsState ) {
+            if (lsState) {
                 const savedState = JSON.parse(lsState) as State;
                 dispatch({ type: "ENTIRE_STATE", state: savedState });
                 return;
             }
-        } catch(e) {
+        } catch (e) {
             console.log(e);
         }
 
@@ -109,18 +132,19 @@ function TripProvider(props: IProps) {
     }, [tripid]);
 
     React.useEffect(() => {
-        if( isMounted.current ) {
-            localStorage.setItem(
-                `trip-${tripid}`,
-                JSON.stringify(state)
-            );
+        if (isMounted.current) {
+            // TODO: ignore on first hydrate
+            localStorage.setItem(`trip-${tripid}`, JSON.stringify(state));
         } else {
             isMounted.current = true;
         }
     }, [state, tripid]);
 
     return (
-        <TripContext.Provider value={value} {...props} />
+        <TripContext.Provider
+            value={value}
+            {...props}
+        />
     );
 }
 

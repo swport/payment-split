@@ -1,7 +1,6 @@
 import * as React from "react";
-import SplitPaymentCalculator, {
+import {
     type ComputedTxns,
-    type ExpensesType,
 } from "../../services/SplitPaymentCalculator";
 import { useTripContext } from "../Trips/Trip-context/Trip-context";
 
@@ -11,33 +10,10 @@ import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 
-import type {
-    FriendType,
-    TxnListType,
-    TxnType,
-} from "../Trips/Trip-context/Trip-types";
-
 import PaymentsList from "./Payments-list";
 
-const get_consolidate_expenses = (txns: TxnListType): ExpensesType => {
-    const _txns = txns.reduce((acc, txn) => {
-        const friend_id = txn.friend.id;
-        const amount = parseFloat(txn.amount.toFixed(2));
-
-        if (acc[friend_id]) {
-            acc[friend_id]["amount"] += amount;
-        } else {
-            acc[friend_id] = { ...txn };
-        }
-
-        return acc;
-    }, {} as { [key: number]: TxnType });
-
-    return Object.values(_txns);
-};
-
 const Payments = () => {
-    const { txns, friends, toPrice } = useTripContext();
+    const { friends, toPrice, getPayments } = useTripContext();
 
     const [total, setTotal] = React.useState<number | undefined>();
     const [transactions, setTransactions] = React.useState<
@@ -69,16 +45,13 @@ const Payments = () => {
     };
 
     React.useEffect(() => {
-        const payments = new SplitPaymentCalculator(
-            get_consolidate_expenses(txns)
-        );
+        const payInstance = getPayments();
+        const transactions = payInstance.getPayments();
 
-        const transactions = payments.get_transactions();
-
-        setTotal(payments.get_total());
+        setTotal(payInstance.getTotal());
         setTransactions(transactions);
         setFilteredTxns(transactions);
-    }, [txns]);
+    }, [getPayments]);
 
     return (
         <>
