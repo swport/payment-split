@@ -131,6 +131,9 @@ const AddExpenses = () => {
                                 id="outlined-multiline-flexible"
                                 placeholder="Amount"
                                 type="number"
+                                inputProps={{
+                                    step: "any"
+                                }}
                                 required
                             />
                         </FormControl>

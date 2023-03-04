@@ -1,5 +1,6 @@
 import React from "react";
 
+import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 import Avatar from "@mui/material/Avatar";
 import { TxnType } from "../Trips/Trip-context/Trip-types";
@@ -114,26 +115,38 @@ const ExpensesListItem = ({ txn }: IProps) => {
                     <span>paid</span>
                     &nbsp;
                     {editing ? (
-                        <form style={{display:"flex"}} onSubmit={onUpdateAmtSubmit}>
-                            <TextField
-                                ref={inputRef}
-                                autoFocus
-                                autoComplete="false"
-                                autoCapitalize="false"
-                                autoCorrect="false"
-                                type="number"
-                                value={newAmt}
-                                onChange={onUpdatingAmt}
-                                fullWidth
-                                size="small"
-                            />
-                            <IconButton type="submit">
-                                <Check />
-                            </IconButton>
-                            <IconButton onClick={onUpdateAmtCancel}>
-                                <Clear />
-                            </IconButton>
-                        </form>
+                        <Grid
+                            container
+                            alignItems="center"
+                            wrap="nowrap"
+                            component="form"
+                            onSubmit={onUpdateAmtSubmit}>
+                            <Grid item>
+                                <TextField
+                                    ref={inputRef}
+                                    autoFocus
+                                    autoComplete="false"
+                                    autoCapitalize="false"
+                                    autoCorrect="false"
+                                    type="number"
+                                    inputProps={{
+                                        step: "any"
+                                    }}
+                                    value={newAmt}
+                                    onChange={onUpdatingAmt}
+                                    fullWidth
+                                    size="small"
+                                />
+                            </Grid>
+                            <Grid item>
+                                <IconButton type="submit">
+                                    <Check />
+                                </IconButton>
+                                <IconButton onClick={onUpdateAmtCancel}>
+                                    <Clear />
+                                </IconButton>
+                            </Grid>
+                        </Grid>
                     ) : (
                         <b onClick={() => startEditing()}> {toPrice(txn.amount)}</b>
                     )}
