@@ -56,3 +56,21 @@ export const numToPrice = (price: string | number, currecny: string) => {
                 currency: "INR"
             });
 };
+
+export const downloadBlobFile = (file: Blob, filename: string): void => {
+    const navigator = window.navigator as any;
+    if (navigator.msSaveOrOpenBlob) {
+        navigator.msSaveOrOpenBlob(file, filename);
+    } else {
+        const a = document.createElement("a");
+        const url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function() {
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);  
+        }, 0); 
+    }
+}
