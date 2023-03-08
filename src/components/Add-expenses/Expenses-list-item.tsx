@@ -14,6 +14,7 @@ import Check from "@mui/icons-material/Check";
 import Clear from "@mui/icons-material/Clear";
 
 import { useTripContext } from "../Trips/Trip-context/Trip-context";
+import MuiNumberInputField from "../UI/MuiNumberInputField";
 
 const sxAvatar: SxProps = { fontSize: "18px", fontWeight: "400" };
 
@@ -122,20 +123,10 @@ const ExpensesListItem = ({ txn }: IProps) => {
                             component="form"
                             onSubmit={onUpdateAmtSubmit}>
                             <Grid item>
-                                <TextField
-                                    ref={inputRef}
-                                    autoFocus
-                                    autoComplete="false"
-                                    autoCapitalize="false"
-                                    autoCorrect="false"
-                                    type="number"
-                                    inputProps={{
-                                        step: "any"
-                                    }}
+                                <MuiNumberInputField
                                     value={newAmt}
                                     onChange={onUpdatingAmt}
-                                    fullWidth
-                                    size="small"
+                                    required
                                 />
                             </Grid>
                             <Grid item>

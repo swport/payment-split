@@ -12,6 +12,8 @@ import Box from "@mui/material/Box";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
+import MuiNumberInputField from "../UI/MuiNumberInputField";
+
 import type {
     FriendType,
     TxnInputType,
@@ -120,20 +122,9 @@ const AddExpenses = () => {
                         sm={3}
                     >
                         <FormControl fullWidth>
-                            <TextField
-                                autoComplete="false"
-                                autoCapitalize="false"
-                                autoCorrect="false"
-                                inputRef={amtInputRef}
+                            <MuiNumberInputField
+                                value={txnAmount}
                                 onChange={onTxnAmountChange}
-                                value={txnAmount ?? undefined}
-                                size="small"
-                                id="outlined-multiline-flexible"
-                                placeholder="Amount"
-                                type="number"
-                                inputProps={{
-                                    step: "any"
-                                }}
                                 required
                             />
                         </FormControl>
