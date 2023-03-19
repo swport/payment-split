@@ -1,7 +1,6 @@
 import * as React from "react";
 import { useTripContext } from "../Trips/Trip-context/Trip-context";
 
-import { SelectChangeEvent } from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Grid from "@mui/material/Grid";
@@ -19,6 +18,7 @@ import type {
     TxnInputType,
 } from "../Trips/Trip-context/Trip-types";
 import ExpensesList from "./Expenses-list";
+import { MuiInputSelectType } from "../../types";
 
 const AddExpenses = () => {
     const { friends, addTxn } = useTripContext();
@@ -35,13 +35,7 @@ const AddExpenses = () => {
         setTxnAmount(Number(e.target.value));
     };
 
-    const onFriendChange = (
-        e:
-            | React.ChangeEvent<
-                  HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement
-              >
-            | SelectChangeEvent
-    ) => {
+    const onFriendChange = (e: MuiInputSelectType) => {
         const id = parseInt(e.target.value);
         if (id) {
             setSelectedFriend(id);

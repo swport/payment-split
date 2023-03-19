@@ -3,7 +3,6 @@ import { type ComputedTxns } from "../../services/SplitPaymentCalculator";
 import { useTripContext } from "../Trips/Trip-context/Trip-context";
 
 import Box from "@mui/material/Box";
-import { SelectChangeEvent } from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
@@ -11,6 +10,7 @@ import IconButton from "@mui/material/IconButton";
 import ShareIcon from "@mui/icons-material/Share";
 
 import PaymentsList from "./Payments-list";
+import { MuiInputSelectType } from "../../types";
 
 const PaymentsShare = React.lazy(() => import("./Payments-share"));
 
@@ -27,13 +27,7 @@ const Payments = () => {
     const [friend, setFriend] = React.useState<string>("0");
     const [share, setShare] = React.useState(false);
 
-    const onFriendChange = (
-        e:
-            | React.ChangeEvent<
-                  HTMLSelectElement | HTMLInputElement | HTMLTextAreaElement
-              >
-            | SelectChangeEvent
-    ) => {
+    const onFriendChange = (e: MuiInputSelectType) => {
         setFriend(e.target.value ?? "0");
 
         const friendId = Number(e.target.value);
