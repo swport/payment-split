@@ -29,8 +29,9 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
+    "build:gh": "tsc && vite build --base=/payment-split/",
     "preview": "vite preview",
-    "predeploy": "yarn run build",
+    "predeploy": "yarn run build:gh",
     "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
