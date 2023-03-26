@@ -86,14 +86,14 @@ const Payments = () => {
                     </FormControl>
                 </Box>
                 {filteredTxns && <PaymentsList txns={filteredTxns} />}
-                {total && (
+                {total ? (
                     <p>
                         Total:{" "}
                         <b>
                             <em>{toPrice(total)}</em>
                         </b>
                     </p>
-                )}
+                ): null}
             </Box>
 
             <React.Suspense fallback={<div>Loading...</div>}>
