@@ -2,6 +2,7 @@ import React from "react";
 
 import Typography from "@mui/material/Typography";
 import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
 import ListItem from "@mui/material/ListItem";
 import Grid from "@mui/material/Grid";
 import Paper from "@mui/material/Paper";
@@ -27,9 +28,6 @@ const CList = styled(List)(() => ({
         paddingLeft: 0,
         paddingRight: 0,
         fontSize: "small",
-        // "&:not(:last-child)": {
-        //     paddingBottom: "0.275rem",
-        // },
     },
     marginBottom: "0.875rem",
 }));
@@ -64,20 +62,32 @@ const ScreenShot: React.FC<IProps> = React.memo(({ setImageUrl }) => {
             </Typography>
             <CList dense>
                 {expenses.map((expense) => (
-                    <ListItem key={expense.id}>
-                        <Grid
-                            container
-                            justifyContent="space-between"
-                        >
-                            <span>{expense.friend.name} paid:</span>{" "}
-                            {toPrice(expense.amount)}
-                        </Grid>
-                    </ListItem>
+                    <>
+                        <ListItem key={expense.id}>
+                            <Grid
+                                container
+                                justifyContent="space-between"
+                                alignItems="center"
+                            >
+                                <div>
+                                    <Typography>{expense.friend.name} paid:</Typography>
+                                    {expense.reason && (
+                                        <Typography>
+                                            <small>({expense.reason})</small>
+                                        </Typography>
+                                    )}
+                                </div>
+                                <div>{toPrice(expense.amount)}</div>
+                            </Grid>
+                        </ListItem>
+                        <Divider />
+                    </>
                 ))}
                 <Typography
                     textAlign="right"
                     width="100%"
                     fontSize="small"
+                    mt="0.875rem"
                 >
                     Total: {toPrice(total ?? 0)}
                 </Typography>

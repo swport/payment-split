@@ -77,6 +77,9 @@ export const addTxn = (
             const atTxns = txns.map((t) => {
                 if (t.friend.id === atFriend.id && t.amount === 0) {
                     t.amount = txnInput.amount;
+                    if( txnInput.reason ) {
+                        t.reason = txnInput.reason;
+                    }
                 }
                 return t;
             });

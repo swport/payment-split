@@ -29,7 +29,7 @@ export type Action =
       }
     | { type: "ADD_TXN"; friendId: FriendType["id"]; txnInput: TxnInputType }
     | { type: "REMOVE_TXN"; txnId: TxnType["id"] }
-    | { type: "UPDATE_TXN"; txnId: TxnType["id"]; amount: TxnType["amount"] }
+    | { type: "UPDATE_TXN"; txnId: TxnType["id"]; amount: TxnType["amount"]; reason?: TxnType["reason"] }
     | { type: "RESET" }
     | { type: "UPDATE_CURRENCY", currency: string }
     | { type: "ENTIRE_STATE", state: State };
@@ -89,6 +89,9 @@ function TripReducer(state: State, action: Action): State {
             const updatedTxns = state.txns.map((txn) => {
                 if (txn.id === action.txnId) {
                     txn.amount = action.amount;
+                    if( action.reason ) {
+                        txn.reason = action.reason;
+                    }
                 }
                 return txn;
             });

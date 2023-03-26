@@ -19,7 +19,7 @@ interface TripProviderState extends State {
         friendName: FriendType["name"]
     ) => void;
     addTxn: (friendId: FriendType["id"], txnInput: TxnInputType) => void;
-    updateTxn: (txnId: TxnType["id"], amount: TxnType["amount"]) => void;
+    updateTxn: (txnId: TxnType["id"], amount: TxnType["amount"], reason?: TxnType['reason']) => void;
     removeTxn: (txnId: TxnType["id"]) => void;
     reset: () => void;
     changeCurrency: (currency: string) => void;
@@ -65,8 +65,8 @@ function TripProvider(props: IProps) {
     const addTxn = (friendId: FriendType["id"], txnInput: TxnInputType) =>
         dispatch({ type: "ADD_TXN", friendId, txnInput });
 
-    const updateTxn = (txnId: TxnType["id"], amount: TxnType["amount"]) =>
-        dispatch({ type: "UPDATE_TXN", txnId, amount });
+    const updateTxn = (txnId: TxnType["id"], amount: TxnType["amount"], reason: TxnType["reason"] = '') =>
+        dispatch({ type: "UPDATE_TXN", txnId, amount, reason });
 
     const removeTxn = (txnId: TxnType["id"]) =>
         dispatch({ type: "REMOVE_TXN", txnId });

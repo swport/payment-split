@@ -8,6 +8,7 @@ import TextField from "@mui/material/TextField";
 import IconButton from "@mui/material/IconButton";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
+import Divider from "@mui/material/Divider";
 
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 
@@ -30,6 +31,7 @@ const AddExpenses = () => {
     const [txnAmount, setTxnAmount] = React.useState<
         TxnInputType["amount"] | undefined
     >(undefined);
+    const [reason, setReason] = React.useState<string>();
 
     const onTxnAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTxnAmount(Number(e.target.value));
@@ -40,6 +42,10 @@ const AddExpenses = () => {
         if (id) {
             setSelectedFriend(id);
         }
+    };
+
+    const onReasonChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setReason(e.target.value);
     };
 
     const onTxnSubmit = (e: React.FormEvent<HTMLFormElement>) => {
@@ -55,6 +61,7 @@ const AddExpenses = () => {
 
         addTxn(selectedFriend, {
             amount: txnAmount,
+            reason
         });
 
         amtInputRef.current?.focus();
@@ -119,6 +126,7 @@ const AddExpenses = () => {
                             <MuiNumberInputField
                                 value={txnAmount}
                                 onChange={onTxnAmountChange}
+                                placeholder="Amount"
                                 required
                             />
                         </FormControl>
@@ -133,9 +141,18 @@ const AddExpenses = () => {
                         </IconButton>
                     </Grid>
                 </Grid>
+                <FormControl margin="dense" fullWidth>
+                    <TextField
+                        value={reason}
+                        size="small"
+                        placeholder="Reason (optional)"
+                        type="text"
+                        onChange={onReasonChange}
+                    />
+                </FormControl>
             </form>
 
-            <hr />
+            <Divider />
 
             <ExpensesList />
         </div>
