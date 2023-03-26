@@ -115,7 +115,8 @@ export const removeTxn = (
                 if( map[txn.friend.id] === 1 ) {
                     acc.push({
                         ...txn,
-                        amount: 0
+                        amount: 0,
+                        reason: undefined
                     });
                 }
             } else {
