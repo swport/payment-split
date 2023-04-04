@@ -44,11 +44,14 @@ const FriendListItem = ({ friend }: IProps) => {
     );
 
     const updateName = () => {
-        if (!newName || newName === "") {
+        const trimmedNewName = newName? newName.trim(): newName
+
+        if (!trimmedNewName || trimmedNewName === "") {
             return alert("Name cannot be empty");
         }
 
-        updateFriendName(friend.id, newName);
+        updateFriendName(friend.id, trimmedNewName);
+        setNewName(trimmedNewName); // change untrimmed newName as well (`   x` to `x`)
         setEditing(false);
     };
 
