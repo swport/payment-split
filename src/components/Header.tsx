@@ -81,7 +81,7 @@ const Header = () => {
                 <DialogTitle id="scroll-dialog-title">
                     <Typography display="flex" alignItems="center" justifyContent="center">
                         <VerticalSplit />
-                        <Typography ml="0.65rem" fontWeight="bold" variant="h6">Payment split app</Typography>
+                        <Typography ml="0.65rem" fontWeight="bold" variant="h6">SplitEase - Split trip expenses with ease</Typography>
                     </Typography>
                 </DialogTitle>
                 <DialogContent dividers={true}>
