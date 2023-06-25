@@ -84,7 +84,7 @@ const AddFriend = () => {
                 <Button
                     type="button"
                     onClick={onAddFriendEvent}
-                    aria-label="search"
+                    aria-label="add friend button"
                 >
                     <Box fontSize="1.2rem">+</Box>
                 </Button>

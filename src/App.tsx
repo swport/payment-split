@@ -3,6 +3,8 @@ import * as React from "react";
 import styled from "@mui/system/styled";
 import Container from "@mui/material/Container";
 import Paper from "@mui/material/Paper";
+import Typography from "@mui/material/Typography";
+import Box from "@mui/material/Box";
 
 import Header from "./components/Header";
 import Trips from "./components/Trips/Trips";
@@ -36,9 +38,16 @@ function App() {
             <ThemeProvider>
                 <Wrapper>
                     <Container
+                        data-testid="RenderedApp"
                         maxWidth="sm"
                         disableGutters={true}
                     >
+                        <Box marginY="0.5rem">
+                            <Typography variant="h1" fontSize="1.6rem" fontWeight="bold">
+                                SplitEase
+                            </Typography>
+                            <Typography variant="body2">Split expenses among your friends with ease</Typography>
+                        </Box>
                         <Content
                             elevation={2}
                             square={true}
@@ -46,6 +55,9 @@ function App() {
                             <Header />
                             <Trips />
                         </Content>
+                        <Box margin="0.15rem" textAlign="right">
+                            <Typography variant="body2">Made with love by <a href="https://github.com/swport" target="_blank">Sumit Wadhwa</a></Typography>
+                        </Box>
                     </Container>
                 </Wrapper>
             </ThemeProvider>

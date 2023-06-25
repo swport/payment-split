@@ -99,7 +99,7 @@ const AddExpenses = () => {
                             fullWidth
                         >
                             <TextField
-                                id="demo-customized-select"
+                                id="expenses-select-friend"
                                 value={String(selectedFriend ?? "0")}
                                 select={true}
                                 size="small"
